@@ -180,6 +180,7 @@ a {
 .hero-mark {
   grid-column: 1 / -1;
   align-self: start;
+  justify-self: end;
 }
 
 .hero-mark .mark {
@@ -615,6 +616,7 @@ footer p {
 
   .hero-mark {
     grid-column: auto;
+    justify-self: end;
   }
 
   .hero-details {
