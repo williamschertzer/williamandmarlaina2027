@@ -19,7 +19,9 @@ const site = {
   location: 'Atlanta',
   fullLocation: 'Swan House at Atlanta History Center',
   locationCity: 'Atlanta, Georgia',
-  withJoyUrl: 'https://withjoy.com/',
+  registryUrl:
+    'https://withjoy.com/william-schertzer-and-marlaina/registry?utm_medium=web&utm_source=joy&utm_campaign=share_website_dialog',
+  rsvpUrl: 'https://withjoy.com/',
   guestPassword: import.meta.env.VITE_GUEST_PASSWORD || 'celebrate',
 };
 
@@ -354,7 +356,7 @@ function RegistryPage() {
         <PageIntro eyebrow="Registry" title="Gifts & Registry">
           Your presence is the most important gift.
         </PageIntro>
-        <a className="primary-button" href={site.withJoyUrl} target="_blank" rel="noreferrer">
+        <a className="primary-button" href={site.registryUrl} target="_blank" rel="noreferrer">
           View our registry on WithJoy <ExternalLink size={17} />
         </a>
       </div>
@@ -371,7 +373,7 @@ function RsvpPage() {
           Enter your name on WithJoy to find your invitation and RSVP for each member of your
           party.
         </PageIntro>
-        <a className="primary-button" href={site.withJoyUrl} target="_blank" rel="noreferrer">
+        <a className="primary-button" href={site.rsvpUrl} target="_blank" rel="noreferrer">
           Find my invitation <ExternalLink size={17} />
         </a>
       </div>
