@@ -24,8 +24,8 @@ const site = {
 };
 
 const pages = [
-  { path: '/', label: 'Home', public: true },
-  { path: '/details', label: 'Details' },
+  { path: '/', label: 'Home' },
+  { path: '/details', label: 'Details', protected: true },
   { path: '/story', label: 'Our Story' },
   { path: '/faq', label: 'FAQs' },
   { path: '/recommendations', label: 'Atlanta' },
@@ -96,7 +96,7 @@ function App() {
   }, []);
 
   const currentPage = pages.find((page) => page.path === path) || pages[0];
-  const isProtected = !currentPage.public;
+  const isProtected = currentPage.protected;
 
   return (
     <div className="site-shell">
@@ -182,7 +182,7 @@ function Header({ path }) {
               onClick={() => setMenuOpen(false)}
             >
               {page.label}
-              {!page.public && <LockKeyhole size={12} aria-label="Password protected" />}
+              {page.protected && <LockKeyhole size={12} aria-label="Password protected" />}
             </Link>
           ))}
         </nav>
@@ -206,8 +206,8 @@ function HomePage() {
     <main className="home-page">
       <img
         className="hero-image"
-        src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=2200&q=90"
-        alt="A couple walking outdoors on their wedding day"
+        src="/iceland.png"
+        alt="William and Marlaina together in front of a waterfall in Iceland"
       />
       <div className="hero-overlay" />
       <div className="hero-content">
@@ -426,7 +426,7 @@ function Footer() {
   return (
     <footer>
       <Mark light />
-      <p>William &amp; Marlaina · {site.locationCity}</p>
+      <p>William &amp; Marlaina · {site.date} · {site.locationCity}</p>
     </footer>
   );
 }
