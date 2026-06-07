@@ -15,14 +15,17 @@ import {
 import './styles.css';
 
 const site = {
-  date: 'Date to be announced',
-  location: 'Atlanta, Georgia',
+  date: 'November 14, 2027',
+  location: 'Atlanta',
+  fullLocation: 'Swan House at Atlanta History Center',
+  locationCity: 'Atlanta, Georgia',
   withJoyUrl: 'https://withjoy.com/',
   guestPassword: import.meta.env.VITE_GUEST_PASSWORD || 'celebrate',
 };
 
 const pages = [
   { path: '/', label: 'Home', public: true },
+  { path: '/details', label: 'Details' },
   { path: '/story', label: 'Our Story' },
   { path: '/faq', label: 'FAQs' },
   { path: '/recommendations', label: 'Atlanta' },
@@ -189,6 +192,7 @@ function Header({ path }) {
 }
 
 function Page({ path }) {
+  if (path === '/details') return <DetailsPage />;
   if (path === '/story') return <StoryPage />;
   if (path === '/faq') return <FaqPage />;
   if (path === '/recommendations') return <RecommendationsPage />;
@@ -211,7 +215,6 @@ function HomePage() {
           <Mark light />
         </div>
         <div className="hero-copy">
-          <p className="hero-kicker">We’re getting married</p>
           <h1>William <span>&amp;</span> Marlaina</h1>
         </div>
         <div className="hero-details" aria-label="Wedding details">
@@ -242,14 +245,54 @@ function PageIntro({ eyebrow, title, children }) {
   );
 }
 
+function DetailsPage() {
+  const detailItems = [
+    {
+      icon: <CalendarDays aria-hidden="true" />,
+      title: 'Date',
+      text: site.date,
+    },
+    {
+      icon: <MapPin aria-hidden="true" />,
+      title: 'Location',
+      text: `${site.fullLocation}, ${site.locationCity}`,
+    },
+    {
+      icon: <LockKeyhole aria-hidden="true" />,
+      title: 'More Details',
+      text: 'Ceremony time, attire, hotel information, transportation, and weekend schedule will be added here.',
+    },
+  ];
+
+  return (
+    <main className="content-page">
+      <PageIntro eyebrow="Wedding Details" title={site.fullLocation}>
+        We will celebrate on {site.date} in {site.locationCity}. More guest information will be
+        added here as plans are finalized.
+      </PageIntro>
+      <div className="details-list">
+        {detailItems.map((item) => (
+          <article className="detail-item" key={item.title}>
+            <div className="detail-icon">{item.icon}</div>
+            <div>
+              <p className="eyebrow">{item.title}</p>
+              <h2>{item.text}</h2>
+            </div>
+          </article>
+        ))}
+      </div>
+    </main>
+  );
+}
+
 function StoryPage() {
   return (
     <main className="content-page story-page">
       <div className="content-grid">
         <div className="portrait-frame">
           <img
-            src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&w=1200&q=85"
-            alt="A couple embracing outdoors"
+            src="/w_m.png"
+            alt="William and Marlaina"
           />
         </div>
         <PageIntro eyebrow="William & Marlaina" title="Our Story">
@@ -383,7 +426,7 @@ function Footer() {
   return (
     <footer>
       <Mark light />
-      <p>William &amp; Marlaina · {site.location}</p>
+      <p>William &amp; Marlaina · {site.locationCity}</p>
     </footer>
   );
 }
