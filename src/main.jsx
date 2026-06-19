@@ -21,7 +21,7 @@ const site = {
   locationCity: 'Atlanta, Georgia',
   registryUrl:
     'https://withjoy.com/william-schertzer-and-marlaina/registry?utm_medium=web&utm_source=joy&utm_campaign=share_website_dialog',
-  rsvpUrl: 'https://withjoy.com/',
+  rsvpUrl: 'https://withjoy.com/william-schertzer-and-marlaina/rsvp?utm_medium=web&utm_source=joy&utm_campaign=share_website_dialog',
   guestPassword: import.meta.env.VITE_GUEST_PASSWORD || 'celebrate',
 };
 
