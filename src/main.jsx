@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom/client';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 import {
   ArrowRight,
   CalendarDays,
@@ -87,6 +89,44 @@ const atlantaActivities = [
     name: 'Atlanta Beltline',
     description: 'Walk or bike the trail for public art, parks, restaurants, shops, and some of the best people-watching in the city.',
     url: 'https://beltline.org/visitor-information/',
+  },
+];
+
+// Add future adventures here. Coordinates use the familiar [latitude, longitude] format.
+// Photos should live in the public folder so their paths begin with a forward slash.
+const adventures = [
+  {
+    id: 'iceland',
+    place: 'South Coast, Iceland',
+    region: 'Iceland',
+    type: 'visit',
+    coordinates: [63.5321, -19.5114],
+    year: 'Our Iceland adventure',
+    description: 'Waterfalls, wide-open landscapes, and one very memorable trip together.',
+    photo: '/iceland.png',
+    photoAlt: 'William and Marlaina together in front of a waterfall in Iceland',
+  },
+  {
+    id: 'east-palisades',
+    place: 'East Palisades Trail',
+    region: 'Atlanta, Georgia',
+    type: 'hike',
+    coordinates: [33.8818, -84.4437],
+    year: 'A favorite close to home',
+    description: 'A riverside trail, a bamboo forest, and one of our favorite Atlanta escapes.',
+    photo: '/w_m.png',
+    photoAlt: 'William and Marlaina together',
+  },
+  {
+    id: 'stone-mountain',
+    place: 'Stone Mountain',
+    region: 'Georgia',
+    type: 'hike',
+    coordinates: [33.8053, -84.1477],
+    year: 'A Georgia summit',
+    description: 'A climb to a sweeping view of the city we call home.',
+    photo: '/w_m.png',
+    photoAlt: 'William and Marlaina together',
   },
 ];
 
@@ -302,6 +342,22 @@ function DetailsPage() {
 }
 
 function StoryPage() {
+  const [filter, setFilter] = useState('all');
+  const [selectedId, setSelectedId] = useState(adventures[0].id);
+  const filteredAdventures = filter === 'all'
+    ? adventures
+    : adventures.filter((adventure) => adventure.type === filter);
+  const selectedAdventure = filteredAdventures.find((adventure) => adventure.id === selectedId)
+    || filteredAdventures[0];
+
+  function chooseFilter(nextFilter) {
+    setFilter(nextFilter);
+    const firstMatch = nextFilter === 'all'
+      ? adventures[0]
+      : adventures.find((adventure) => adventure.type === nextFilter);
+    setSelectedId(firstMatch.id);
+  }
+
   return (
     <main className="content-page story-page">
       <div className="content-grid">
@@ -312,12 +368,132 @@ function StoryPage() {
           />
         </div>
         <PageIntro eyebrow="William & Marlaina" title="Our Story">
-          This page is ready for the story of how you met, the moments that brought you together,
-          and the road to Atlanta.
+          We have built our life together one adventure at a time—from trails close to home to
+          waterfalls across the ocean. Explore a few of the places that have become part of our story.
         </PageIntro>
       </div>
+
+      <section className="adventure-section" aria-labelledby="adventure-title">
+        <div className="adventure-heading">
+          <div>
+            <p className="eyebrow">Our adventures</p>
+            <h2 id="adventure-title">Places we’ve wandered</h2>
+          </div>
+          <div className="map-filters" aria-label="Filter adventures">
+            {[
+              ['all', 'All places'],
+              ['visit', 'Trips'],
+              ['hike', 'Hikes'],
+            ].map(([value, label]) => (
+              <button
+                className={filter === value ? 'active' : ''}
+                type="button"
+                onClick={() => chooseFilter(value)}
+                aria-pressed={filter === value}
+                key={value}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="adventure-explorer">
+          <AdventureMap
+            adventures={filteredAdventures}
+            selectedId={selectedAdventure.id}
+            onSelect={setSelectedId}
+          />
+          <article className="adventure-card" aria-live="polite">
+            <div className="adventure-photo-wrap">
+              <img src={selectedAdventure.photo} alt={selectedAdventure.photoAlt} />
+              <span>{selectedAdventure.type === 'hike' ? 'On the trail' : 'Our travels'}</span>
+            </div>
+            <div className="adventure-card-copy">
+              <p className="eyebrow">{selectedAdventure.region}</p>
+              <h3>{selectedAdventure.place}</h3>
+              <p>{selectedAdventure.description}</p>
+              <small>{selectedAdventure.year}</small>
+            </div>
+          </article>
+        </div>
+
+        <div className="adventure-list" aria-label="Choose a place">
+          {filteredAdventures.map((adventure, index) => (
+            <button
+              className={adventure.id === selectedAdventure.id ? 'active' : ''}
+              type="button"
+              onClick={() => setSelectedId(adventure.id)}
+              aria-pressed={adventure.id === selectedAdventure.id}
+              key={adventure.id}
+            >
+              <span>{String(index + 1).padStart(2, '0')}</span>
+              <strong>{adventure.place}</strong>
+              <small>{adventure.region}</small>
+            </button>
+          ))}
+        </div>
+      </section>
     </main>
   );
+}
+
+function AdventureMap({ adventures: visibleAdventures, selectedId, onSelect }) {
+  const mapElement = useRef(null);
+  const mapInstance = useRef(null);
+  const markerLayer = useRef(null);
+
+  useEffect(() => {
+    if (!mapElement.current) return undefined;
+
+    if (!mapInstance.current) {
+      mapInstance.current = L.map(mapElement.current, {
+        center: [32, -28],
+        zoom: 2,
+        minZoom: 2,
+        maxZoom: 12,
+        worldCopyJump: true,
+        scrollWheelZoom: false,
+      });
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors',
+      }).addTo(mapInstance.current);
+      markerLayer.current = L.layerGroup().addTo(mapInstance.current);
+    }
+
+    markerLayer.current.clearLayers();
+    visibleAdventures.forEach((adventure) => {
+      const marker = L.marker(adventure.coordinates, {
+        icon: L.divIcon({
+          className: 'adventure-marker-shell',
+          html: `<span class="adventure-marker${adventure.id === selectedId ? ' is-selected' : ''}"><span class="sr-only">${adventure.place}</span></span>`,
+          iconSize: [34, 34],
+          iconAnchor: [17, 17],
+        }),
+        title: adventure.place,
+        keyboard: true,
+      }).addTo(markerLayer.current);
+      marker.on('click', () => onSelect(adventure.id));
+    });
+
+    if (visibleAdventures.length > 1) {
+      mapInstance.current.fitBounds(
+        L.latLngBounds(visibleAdventures.map((adventure) => adventure.coordinates)),
+        { padding: [55, 55], maxZoom: 7 },
+      );
+    } else if (visibleAdventures.length === 1) {
+      mapInstance.current.setView(visibleAdventures[0].coordinates, 5);
+    }
+
+    return undefined;
+  }, [visibleAdventures, selectedId, onSelect]);
+
+  useEffect(() => () => {
+    mapInstance.current?.remove();
+    mapInstance.current = null;
+  }, []);
+
+  return <div className="adventure-map" ref={mapElement} aria-label="Interactive map of places William and Marlaina have visited" />;
 }
 
 function FaqPage() {
