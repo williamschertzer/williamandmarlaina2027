@@ -296,8 +296,13 @@ function DetailsPage() {
     {
       icon: <LockKeyhole aria-hidden="true" />,
       title: 'More Details',
-      text: 'Attire — Formal',
-      description: <p>More questions? <Link className="text-link" to="/faq">Check out our FAQ</Link>.</p>,
+      text: 'Ceremony time, attire, hotel information, transportation, and weekend schedule will be added here.',
+      description: (
+        <>
+          <p>Attire — Formal</p>
+          <p>More questions? <Link className="text-link" to="/faq">Check out our FAQ</Link>.</p>
+        </>
+      ),
     },
   ];
 
@@ -439,7 +444,6 @@ function AdventureCard({ adventure }) {
         <h3>{adventure.place}</h3>
         {adventure.address && <p>{adventure.address}</p>}
         <p>{adventure.description}</p>
-        <small>{adventure.year}</small>
       </div>
     </article>
   );

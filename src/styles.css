@@ -522,11 +522,6 @@ a {
   line-height: 1.65;
 }
 
-.adventure-card-copy small {
-  color: #d8bb91;
-  font-style: italic;
-}
-
 .adventure-list {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
