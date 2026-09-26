@@ -571,7 +571,7 @@ function FaqPage() {
       answer: (
         <>
           <p><strong>Put on your fancy pants and celebrate with us! Formal attire, please.</strong></p>
-          <p>Formal attire is expected. Think floor-length dresses and dark-colored suits with ties. Weather permitting, the ceremony will be outdoors on grass, so please keep that in mind when choosing shoes and sleeves.</p>
+          <p>Think floor-length dresses and dark-colored suits with ties. Weather permitting, the ceremony will be outdoors on grass, so please keep that in mind when choosing shoes and sleeves.</p>
         </>
       ),
     },
