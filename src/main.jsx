@@ -296,13 +296,8 @@ function DetailsPage() {
     {
       icon: <LockKeyhole aria-hidden="true" />,
       title: 'More Details',
-      text: 'Ceremony time, attire, hotel information, transportation, and weekend schedule will be added here.',
-      description: (
-        <>
-          <p>Attire — Formal</p>
-          <p>More questions? <Link className="text-link" to="/faq">Check out our FAQ</Link>.</p>
-        </>
-      ),
+      text: 'Attire — Formal',
+      description: <p>More questions? <Link className="text-link" to="/faq">Check out our FAQ</Link>.</p>,
     },
   ];
 
@@ -525,7 +520,19 @@ function FaqPage() {
   const faqItems = [
     {
       question: 'What do Will and Marlaina want you to know?',
-      answer: <p>We are so incredibly happy to be celebrating this milestone with you! We are both very sentimental people and we hope that you will see big emotions reflected in our day.</p>,
+      answer: (
+        <>
+          <p>We are so incredibly happy to be celebrating this milestone with you! We are both very sentimental people and we hope that you will see big emotions reflected in our day.</p>
+          <p>We expect you to dance! Dancing is an important part of our relationship, and we would love to celebrate with you on the dance floor.</p>
+          <p>
+            This will be an Orthodox Jewish wedding with lots of symbolism and unique traditions. You can{' '}
+            <a href="https://www.chabad.org/library/article_cdo/aid/476757/jewish/Jewish-Wedding-Ceremony-Traditions.htm" target="_blank" rel="noreferrer">
+              learn more about Jewish wedding traditions <ExternalLink size={14} />
+            </a>.
+            {' '}Most importantly, please come prepared to Hora!
+          </p>
+        </>
+      ),
     },
     {
       question: 'What is the Hora?',
@@ -561,7 +568,12 @@ function FaqPage() {
     },
     {
       question: 'What should I wear?',
-      answer: <p><strong>Put on your fancy pants and celebrate with us! Formal attire, please.</strong></p>,
+      answer: (
+        <>
+          <p><strong>Put on your fancy pants and celebrate with us! Formal attire, please.</strong></p>
+          <p>Formal attire is expected. Think floor-length dresses and dark-colored suits with ties. Weather permitting, the ceremony will be outdoors on grass, so please keep that in mind when choosing shoes and sleeves.</p>
+        </>
+      ),
     },
     {
       question: 'Can I bring my children or significant other?',
