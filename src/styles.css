@@ -499,20 +499,7 @@ a {
   background: linear-gradient(transparent 55%, rgba(18, 35, 29, 0.65));
 }
 
-.adventure-photo-wrap > span {
-  position: absolute;
-  z-index: 1;
-  right: 18px;
-  bottom: 16px;
-  padding: 7px 11px;
-  border: 1px solid rgba(255, 255, 255, 0.55);
-  border-radius: 999px;
-  color: white;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
+
 
 .adventure-card-copy {
   padding: 30px;

@@ -77,7 +77,8 @@ export const adventures = [
     photos: [],
   },
   {
-    id: 'furkids', place: 'Furkids Thrift Store', region: 'Peachtree Corners, Georgia', type: 'milestone',
+    id: 'furkids', place: 'Furkids Pet Adoption & Community Resource Center', region: 'Peachtree Corners, Georgia', type: 'milestone',
+    address: '4015 Holcomb Bridge Rd #390, Peachtree Corners, GA 30092',
     coordinates: [33.9661042, -84.2569684], year: 'Meeting Cadence',
     description: 'This is where Marlie first met Cadence! We are so, so lucky she came into our lives.',
     photos: photos(['24', '25', '6-png'], 'Memories with Cadence'),

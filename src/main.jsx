@@ -296,7 +296,8 @@ function DetailsPage() {
     {
       icon: <LockKeyhole aria-hidden="true" />,
       title: 'More Details',
-      text: 'Ceremony time, attire, hotel information, transportation, and weekend schedule will be added here.',
+      text: 'Attire — Formal',
+      description: <p>More questions? <Link className="text-link" to="/faq">Check out our FAQ</Link>.</p>,
     },
   ];
 
@@ -313,6 +314,7 @@ function DetailsPage() {
             <div>
               <p className="eyebrow">{item.title}</p>
               <h2>{item.text}</h2>
+              {item.description}
             </div>
           </article>
         ))}
@@ -411,7 +413,6 @@ function StoryPage() {
 function AdventureCard({ adventure }) {
   const [photoIndex, setPhotoIndex] = useState(0);
   const photo = adventure.photos[photoIndex];
-  const category = { hike: 'On the trail', visit: 'Our travels', milestone: 'Our milestones' }[adventure.type];
 
   return (
     <article className="adventure-card" aria-label={adventure.place}>
@@ -419,7 +420,6 @@ function AdventureCard({ adventure }) {
         <div className="adventure-gallery">
           <div className="adventure-photo-wrap">
             <img src={photo.src} alt={photo.alt} loading="lazy" />
-            <span>{category}</span>
           </div>
           {adventure.photos.length > 1 && (
             <div className="adventure-photo-controls">
@@ -437,6 +437,7 @@ function AdventureCard({ adventure }) {
       <div className="adventure-card-copy" aria-live="polite">
         <p className="eyebrow">{adventure.region}</p>
         <h3>{adventure.place}</h3>
+        {adventure.address && <p>{adventure.address}</p>}
         <p>{adventure.description}</p>
         <small>{adventure.year}</small>
       </div>
@@ -519,19 +520,8 @@ function AdventureMap({ adventures: visibleAdventures, selectedId, onSelect }) {
 function FaqPage() {
   const faqItems = [
     {
-      question: 'What do Will and Marlaina want me to know?',
-      answer: (
-        <>
-          <p>We expect you to dance! Dancing is an important part of our relationship, and we would love to celebrate with you on the dance floor.</p>
-          <p>
-            This will be an Orthodox Jewish wedding with lots of symbolism and unique traditions. You can{' '}
-            <a href="https://www.chabad.org/library/article_cdo/aid/476757/jewish/Jewish-Wedding-Ceremony-Traditions.htm" target="_blank" rel="noreferrer">
-              learn more about Jewish wedding traditions <ExternalLink size={14} />
-            </a>.
-            {' '}Most importantly, please come prepared to Hora!
-          </p>
-        </>
-      ),
+      question: 'What do Will and Marlaina want you to know?',
+      answer: <p>We are so incredibly happy to be celebrating this milestone with you! We are both very sentimental people and we hope that you will see big emotions reflected in our day.</p>,
     },
     {
       question: 'What is the Hora?',
@@ -546,12 +536,9 @@ function FaqPage() {
     },
     {
       question: 'What celebrations begin at 4:30 p.m.?',
-      answer: <p>The Tisch and Bedeken begin at 4:30 p.m., before the wedding ceremony.</p>,
-    },
-    {
-      question: 'What are the Tisch and Bedeken?',
       answer: (
         <div className="faq-rich-answer">
+          <p>The Tisch and Bedeken begin at 4:30 p.m., before the wedding ceremony.</p>
           <p>
             The <strong>tisch</strong> and <strong>bedeken</strong> are two vibrant pre-wedding customs in Jewish tradition, especially common in Ashkenazi communities, that take place just before the wedding ceremony.
           </p>
@@ -570,7 +557,7 @@ function FaqPage() {
     },
     {
       question: 'What should I wear?',
-      answer: <p>Formal attire is expected. Think floor-length dresses and dark-colored suits with ties. Weather permitting, the ceremony will be outdoors on grass, so please keep that in mind when choosing shoes and sleeves.</p>,
+      answer: <p><strong>Put on your fancy pants and celebrate with us! Formal attire, please.</strong></p>,
     },
     {
       question: 'Can I bring my children or significant other?',
