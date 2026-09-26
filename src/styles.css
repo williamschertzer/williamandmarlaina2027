@@ -755,6 +755,76 @@ a {
   background: #e8e6dc;
 }
 
+.coffee-heading {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  margin: 54px 0 22px;
+}
+
+.coffee-heading > svg {
+  width: 42px;
+  height: 42px;
+  padding: 9px;
+  border: 1px solid rgba(158, 121, 82, 0.55);
+  border-radius: 50%;
+  color: #9e7952;
+  stroke-width: 1.5;
+}
+
+.coffee-heading .eyebrow {
+  margin-bottom: 5px;
+}
+
+.coffee-heading h3 {
+  margin: 0;
+  color: #243a31;
+  font-size: 30px;
+  font-weight: 400;
+}
+
+.coffee-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  border: 1px solid rgba(36, 58, 49, 0.2);
+  background: rgba(36, 58, 49, 0.2);
+}
+
+.coffee-card {
+  min-height: 240px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: space-between;
+  padding: 31px;
+  background: #e8e6dc;
+}
+
+.coffee-card h3 {
+  margin: 0 0 13px;
+  color: #243a31;
+  font-size: 28px;
+  font-weight: 400;
+}
+
+.coffee-card > div > p:not(.eyebrow) {
+  max-width: 390px;
+  margin: 0 0 24px;
+  color: #5c625b;
+  line-height: 1.6;
+}
+
+.coffee-card a {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border-bottom: 1px solid #9e7952;
+  color: #785535;
+  font-size: 14px;
+  font-weight: 700;
+}
+
 .activity-list {
   display: grid;
   gap: 1px;
@@ -1167,6 +1237,10 @@ footer p {
     grid-template-columns: 1fr;
   }
 
+  .coffee-grid {
+    grid-template-columns: 1fr;
+  }
+
   .dining-card {
     min-height: 0;
   }
@@ -1197,5 +1271,59 @@ footer p {
   *::after {
     scroll-behavior: auto !important;
     transition: none !important;
+  }
+}
+
+/* Keep the full photo visible, including portraits from the story document. */
+.adventure-photo-wrap img {
+  object-fit: contain;
+}
+
+.adventure-gallery {
+  min-width: 0;
+  background: #192c24;
+}
+
+.adventure-photo-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 12px;
+  font-size: 13px;
+}
+
+.adventure-photo-controls button {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  background: transparent;
+  color: white;
+  cursor: pointer;
+}
+
+.adventure-photo-controls button:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.adventure-section button:focus-visible {
+  outline: 3px solid #b88d55;
+  outline-offset: -3px;
+}
+
+.adventure-list button {
+  border-bottom: 1px solid rgba(36, 58, 49, 0.2);
+}
+
+.adventure-list strong {
+  white-space: normal;
+}
+
+@media (min-width: 561px) and (max-width: 850px) {
+  .adventure-photo-wrap {
+    height: 300px;
   }
 }
