@@ -24,7 +24,7 @@ export const adventures = [
     id: 'smoky-mountains', place: 'Great Smoky Mountains', region: 'Tennessee & North Carolina', type: 'hike',
     coordinates: [35.6118, -83.4895], year: 'Our first national park',
     description: 'This is the first national park we ever visited together! Some of our favorite hikes have been here.',
-    photos: photos(['4', '5', '39.jpg', '40.jpg'], 'Our hikes in Great Smoky Mountains National Park'),
+    photos: photos(['4', '39.jpg', '40.jpg'], 'Our hikes in Great Smoky Mountains National Park'),
   },
   {
     id: 'nashville', place: 'Nashville', region: 'Tennessee', type: 'visit',
@@ -48,7 +48,7 @@ export const adventures = [
     id: 'savannah', place: 'Savannah', region: 'Georgia', type: 'visit',
     coordinates: [32.0809, -81.0912], year: 'Our third anniversary',
     description: 'Not only did we visit Savannah for our third anniversary, we also spent America’s 250th anniversary here! Marlie and the other ladies on our Fourth of July trip had a nice surprise for Will and the boys.',
-    photos: photos(['3-png', '14', '13', '41.jpg'], 'Our anniversary and Fourth of July memories in Savannah'),
+    photos: photos(['3-png', '14', '13'], 'Our anniversary and Fourth of July memories in Savannah'),
   },
   {
     id: 'new-york', place: 'New York City', region: 'New York', type: 'visit',
@@ -63,7 +63,7 @@ export const adventures = [
     ['mount-yonah', 'Mount Yonah', [34.6375, -83.7136], '19'],
     ['east-palisades', 'East Palisades Bamboo Forest', [33.8818, -84.4437], '20'],
     ['amicalola-falls', 'Amicalola Falls', [34.5653, -84.2478], '21'],
-    ['high-falls', 'High Falls', [33.1782, -84.0203], '5-png'],
+    ['high-falls', 'High Falls', [33.1782, -84.0203], '5-png.jpg'],
     ['tallulah-gorge', 'Tallulah Gorge', [34.7398, -83.3952], '22'],
     ['anna-ruby-falls', 'Anna Ruby Falls', [34.7643, -83.7125], '23'],
   ].map(([id, place, coordinates, photo]) => ({
