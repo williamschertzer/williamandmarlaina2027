@@ -301,8 +301,7 @@ function DetailsPage() {
     {
       icon: <Clock aria-hidden="true" />,
       title: 'Time',
-      text: 'Celebrations begin at 4:30 p.m.',
-      description: <p>Candlelit ceremony promptly at 5:15 p.m.</p>,
+      text: <>Celebrations begin at 4:30 p.m.<br />Candlelit ceremony promptly at 5:15 p.m.</>,
     },
     {
       icon: <MapPin aria-hidden="true" />,
@@ -332,7 +331,7 @@ function DetailsPage() {
     {
       icon: <LockKeyhole aria-hidden="true" />,
       title: 'More Details',
-      text: 'Attire — Formal',
+      text: 'Attire — Black Tie Optional',
       description: <p>More questions? <Link className="text-link" to="/faq">Check out our FAQ</Link>.</p>,
     },
   ];
@@ -606,7 +605,7 @@ function FaqPage() {
       question: 'What should I wear?',
       answer: (
         <>
-          <p><strong>Put on your fancy pants and celebrate with us! Formal attire, please.</strong></p>
+          <p><strong>Put on your fancy pants and celebrate with us! Black tie optional attire, please.</strong></p>
           <p>Think floor-length dresses and dark-colored suits with ties. Weather permitting, the ceremony will be outdoors on grass, so please keep that in mind when choosing shoes and sleeves.</p>
         </>
       ),
