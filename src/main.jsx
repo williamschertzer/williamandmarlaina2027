@@ -8,6 +8,7 @@ import {
   ChevronDown,
   ChevronLeft,
   ChevronRight,
+  Clock,
   Coffee,
   ExternalLink,
   Gift,
@@ -16,6 +17,7 @@ import {
   LockKeyhole,
   MapPin,
   Menu,
+  PartyPopper,
   Trees,
   Utensils,
   X,
@@ -28,6 +30,7 @@ const site = {
   location: 'Atlanta',
   fullLocation: 'Swan House at Atlanta History Center',
   locationCity: 'Atlanta, Georgia',
+  address: '130 West Paces Ferry Rd NW, Atlanta, GA 30305',
   registryUrl:
     'https://withjoy.com/william-schertzer-and-marlaina/registry?utm_medium=web&utm_source=joy&utm_campaign=share_website_dialog',
   rsvpUrl: 'https://withjoy.com/william-schertzer-and-marlaina/rsvp?utm_medium=web&utm_source=joy&utm_campaign=share_website_dialog',
@@ -44,11 +47,14 @@ const pages = [
   { path: '/rsvp', label: 'RSVP' },
 ];
 
+const mapSearchUrl = (query) =>
+  `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+
 const diningRecommendations = [
   { label: 'Will’s favorite', name: 'Nam Phuong', query: 'Nam Phuong Restaurant Atlanta GA' },
   { label: 'Marlie’s favorite', name: 'Barcelona Wine Bar', query: 'Barcelona Wine Bar Atlanta GA' },
   { label: 'Our favorite brunch', name: 'The Daily Chew', query: 'The Daily Chew Atlanta GA' },
-  { label: 'Classic crowd-pleaser', name: 'Ponce City Market', query: 'Ponce City Market Atlanta GA' },
+  { label: 'Classic crowd-pleaser', name: 'Ponce City Market', description: 'Atlanta’s famous food hall', query: 'Ponce City Market Atlanta GA' },
   { label: 'Barbecue', name: 'Fat Matt’s Rib Shack', query: "Fat Matt's Rib Shack Atlanta GA" },
   { label: 'Close to the hotel', name: 'Coming soon', muted: true },
 ];
@@ -72,46 +78,50 @@ const atlantaActivities = [
   {
     name: 'Atlanta History Center',
     description:
-      'This is where we’re getting married! Explore 33 acres of beautiful gardens, historic houses, exhibitions, and Atlanta stories—including the Swan House before the celebration begins.',
+      'This is where we are getting married! As a benefit to all of our guests, admission to the museum and gardens will be free all weekend. There are 33 acres of beautiful gardens and a historic home that you will not have nearly enough time to explore during our wedding.',
     url: 'https://www.atlantahistorycenter.com/',
   },
   {
-    name: 'Downtown Atlanta',
-    description: 'Make a day of the Georgia Aquarium and World of Coca-Cola, two Atlanta favorites located next door to one another.',
+    name: 'Downtown Atlanta & Centennial Olympic Park',
+    description:
+      'The typical hopping spots for tourists, and for good reason! The aquarium is the largest in the Western Hemisphere, try sodas from around the world, or see where the opening ceremony of the 1996 Olympics was held.',
     links: [
       { label: 'Georgia Aquarium', url: 'https://www.georgiaaquarium.org/' },
       { label: 'World of Coca-Cola', url: 'https://www.worldofcoca-cola.com/' },
+      { label: 'Centennial Olympic Park', url: 'https://www.gwcca.org/centennial-olympic-park' },
     ],
   },
   {
     name: 'Piedmont Park & Atlanta Botanical Garden',
-    description: 'A beautiful pair of Midtown destinations—and the place where we got engaged!',
-    url: 'https://atlantabg.org/',
+    description:
+      'We love walking around this massive park in Midtown. We even moved to be just half a block away from the park! This is also where we found Banjo and where we got engaged. The botanical garden is also beautiful and a peaceful way to enjoy the amazing Georgia weather.',
+    links: [
+      { label: 'Piedmont Park', url: 'https://piedmontpark.org/' },
+      { label: 'Atlanta Botanical Garden', url: 'https://atlantabg.org/' },
+    ],
   },
   {
-    name: 'Bamboo Forest at East Palisades',
-    description: 'An easy, scenic hike along the Chattahoochee River, close to the hotel area.',
-    mapQuery: 'East Palisades Trail Bamboo Forest Atlanta GA',
-  },
-  {
-    name: 'Stone Mountain Park',
-    description: 'Hike, explore the park, and take in a sweeping view of Atlanta from the summit.',
-    url: 'https://www.stonemountainpark.com/',
+    name: 'Bamboo Forest at East Palisades & Stone Mountain',
+    description:
+      'These are two hikes within 30 minutes of the hotel. We love hiking and would love if you would celebrate us all weekend by spending time in some beautiful nature.',
+    links: [
+      { label: 'East Palisades Bamboo Forest', url: mapSearchUrl('East Palisades Trail Bamboo Forest Atlanta GA') },
+      { label: 'Stone Mountain Park', url: 'https://www.stonemountainpark.com/' },
+    ],
   },
   {
     name: 'Martin Luther King, Jr. National Historical Park',
-    description: 'Visit Dr. King’s birth home neighborhood, historic Ebenezer Baptist Church, and the King Center.',
+    description:
+      'Atlanta’s role in the civil rights movement was monumental, especially as the birthplace of MLK. See his childhood home, the church where he preached, his resting place (which is a national park), and an incredible museum about his life.',
     url: 'https://www.nps.gov/malu/index.htm',
   },
   {
     name: 'Atlanta Beltline',
-    description: 'Walk or bike the trail for public art, parks, restaurants, shops, and some of the best people-watching in the city.',
+    description:
+      'This is one of the most unique features of Atlanta. The Beltline is a 22-mile-long pedestrian path lined with shops and connecting Atlanta’s neighborhoods. It’s a perfect spot for people-watching.',
     url: 'https://beltline.org/visitor-information/',
   },
 ];
-
-const mapSearchUrl = (query) =>
-  `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
 
 function navigate(path) {
   window.history.pushState({}, '', path);
@@ -289,9 +299,35 @@ function DetailsPage() {
       text: site.date,
     },
     {
+      icon: <Clock aria-hidden="true" />,
+      title: 'Time',
+      text: 'Celebrations begin at 4:30 p.m.',
+      description: <p>Candlelit ceremony promptly at 5:15 p.m.</p>,
+    },
+    {
       icon: <MapPin aria-hidden="true" />,
       title: 'Location',
       text: `${site.fullLocation}, ${site.locationCity}`,
+      description: (
+        <p>
+          <a className="text-link" href={mapSearchUrl(`Atlanta History Center, ${site.address}`)} target="_blank" rel="noreferrer">
+            {site.address}
+          </a>
+        </p>
+      ),
+    },
+    {
+      icon: <PartyPopper aria-hidden="true" />,
+      title: 'Welcome Party',
+      text: 'Saturday, November 13 · 5–8 p.m.',
+      description: (
+        <p>
+          Fadó Irish Pub, Buckhead ·{' '}
+          <a className="text-link" href={mapSearchUrl('Fado Irish Pub Buckhead Atlanta GA')} target="_blank" rel="noreferrer">
+            View on map
+          </a>
+        </p>
+      ),
     },
     {
       icon: <LockKeyhole aria-hidden="true" />,
@@ -643,51 +679,8 @@ function RecommendationsPage() {
 
       <section className="atlanta-section">
         <div className="section-heading">
-          <Utensils aria-hidden="true" />
-          <div><p className="eyebrow">02 · Come hungry</p><h2>What to eat</h2></div>
-        </div>
-        <div className="dining-grid">
-          {diningRecommendations.map((item) => (
-            <article className={`dining-card ${item.muted ? 'is-muted' : ''}`} key={item.label}>
-              <Coffee aria-hidden="true" />
-              <p className="eyebrow">{item.label}</p>
-              <h3>{item.name}</h3>
-              {!item.muted && (
-                <a href={mapSearchUrl(item.query)} target="_blank" rel="noreferrer">
-                  View on map <ExternalLink size={14} />
-                </a>
-              )}
-            </article>
-          ))}
-        </div>
-
-        <div className="coffee-heading">
-          <Coffee aria-hidden="true" />
-          <div>
-            <p className="eyebrow">Coffee break</p>
-            <h3>Where to get coffee</h3>
-          </div>
-        </div>
-        <div className="coffee-grid">
-          {coffeeRecommendations.map((item) => (
-            <article className="coffee-card" key={item.name}>
-              <div>
-                <p className="eyebrow">{item.label}</p>
-                <h3>{item.name}</h3>
-                <p>{item.description}</p>
-              </div>
-              <a href={mapSearchUrl(item.query)} target="_blank" rel="noreferrer">
-                View on map <ExternalLink size={14} />
-              </a>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="atlanta-section">
-        <div className="section-heading">
           <Trees aria-hidden="true" />
-          <div><p className="eyebrow">03 · See the city</p><h2>What to do</h2></div>
+          <div><p className="eyebrow">02 · See the city</p><h2>What to do</h2></div>
         </div>
         <div className="activity-list">
           {atlantaActivities.map((item, index) => (
@@ -705,6 +698,49 @@ function RecommendationsPage() {
                   </a>
                 )}
               </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="atlanta-section">
+        <div className="section-heading">
+          <Utensils aria-hidden="true" />
+          <div><p className="eyebrow">03 · Come hungry</p><h2>Where to eat</h2></div>
+        </div>
+        <div className="dining-grid">
+          {diningRecommendations.map((item) => (
+            <article className={`dining-card ${item.muted ? 'is-muted' : ''}`} key={item.label}>
+              <Coffee aria-hidden="true" />
+              <p className="eyebrow">{item.label}</p>
+              <h3>{item.name}</h3>
+              {item.description && <p>{item.description}</p>}
+              {!item.muted && (
+                <a href={mapSearchUrl(item.query)} target="_blank" rel="noreferrer">
+                  View on map <ExternalLink size={14} />
+                </a>
+              )}
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="atlanta-section">
+        <div className="section-heading">
+          <Coffee aria-hidden="true" />
+          <div><p className="eyebrow">04 · Coffee break</p><h2>Where to get coffee</h2></div>
+        </div>
+        <div className="coffee-grid">
+          {coffeeRecommendations.map((item) => (
+            <article className="coffee-card" key={item.name}>
+              <div>
+                <p className="eyebrow">{item.label}</p>
+                <h3>{item.name}</h3>
+                <p>{item.description}</p>
+              </div>
+              <a href={mapSearchUrl(item.query)} target="_blank" rel="noreferrer">
+                View on map <ExternalLink size={14} />
+              </a>
             </article>
           ))}
         </div>

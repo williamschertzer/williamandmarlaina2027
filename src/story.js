@@ -1,7 +1,7 @@
 // Stories and photo order follow wedding_website_edits.docx.
 // Coordinates are [latitude, longitude]; city and park pins represent the overall destination.
 const photos = (names, alt) => names.map((name, index) => ({
-  src: `/story/image${name}.webp`,
+  src: name.includes('.') ? `/story/image${name}` : `/story/image${name}.webp`,
   alt: `${alt} — photo ${index + 1}`,
 }));
 
@@ -18,18 +18,18 @@ export const adventures = [
     id: 'mercedes-benz-stadium', place: 'Mercedes-Benz Stadium', region: 'Atlanta, Georgia', type: 'milestone',
     coordinates: [33.7554, -84.4008], year: 'Making it official',
     description: 'Sports have been a big part of our relationship. We’ve been to many Atlanta United games, World Cup games, a Dolphins game, and a Premier League preseason friendly. It was at that friendly that Will asked Marlie to be his girlfriend!',
-    photos: photos(['1-png', '2', '3', '2-png'], 'Memories from our sports outings'),
+    photos: photos(['3', '2-png', '1-png', '2'], 'Memories from our sports outings'),
   },
   {
     id: 'smoky-mountains', place: 'Great Smoky Mountains', region: 'Tennessee & North Carolina', type: 'hike',
     coordinates: [35.6118, -83.4895], year: 'Our first national park',
     description: 'This is the first national park we ever visited together! Some of our favorite hikes have been here.',
-    photos: photos(['4', '5'], 'Our hikes in Great Smoky Mountains National Park'),
+    photos: photos(['4', '5', '39.jpg', '40.jpg'], 'Our hikes in Great Smoky Mountains National Park'),
   },
   {
     id: 'nashville', place: 'Nashville', region: 'Tennessee', type: 'visit',
     coordinates: [36.1627, -86.7816], year: 'Our travels',
-    description: 'nashville palceholder',
+    description: 'This was our first ever trip together! We had so much fun exploring a new city and traveling together.',
     photos: photos(['6'], 'Our visit to Nashville'),
   },
   {
@@ -42,13 +42,13 @@ export const adventures = [
     id: 'toronto', place: 'Toronto & Niagara Falls', region: 'Ontario, Canada', type: 'visit',
     coordinates: [43.6532, -79.3832], additionalCoordinates: [[43.0828, -79.0742]], year: 'Our second anniversary',
     description: 'Anniversary year two! We met up in Canada while Will was spending the summer in Michigan. It was a whirlwind weekend, and so much fun!',
-    photos: photos(['9', '10', '11', '12'], 'Our second-anniversary trip to Toronto and Niagara Falls'),
+    photos: photos(['10', '11', '12'], 'Our second-anniversary trip to Toronto and Niagara Falls'),
   },
   {
     id: 'savannah', place: 'Savannah', region: 'Georgia', type: 'visit',
     coordinates: [32.0809, -81.0912], year: 'Our third anniversary',
     description: 'Not only did we visit Savannah for our third anniversary, we also spent America’s 250th anniversary here! Marlie and the other ladies on our Fourth of July trip had a nice surprise for Will and the boys.',
-    photos: photos(['13', '14', '3-png'], 'Our anniversary and Fourth of July memories in Savannah'),
+    photos: photos(['3-png', '14', '13', '41.jpg'], 'Our anniversary and Fourth of July memories in Savannah'),
   },
   {
     id: 'new-york', place: 'New York City', region: 'New York', type: 'visit',
@@ -78,7 +78,6 @@ export const adventures = [
   },
   {
     id: 'furkids', place: 'Furkids Pet Adoption & Community Resource Center', region: 'Peachtree Corners, Georgia', type: 'milestone',
-    address: '4015 Holcomb Bridge Rd #390, Peachtree Corners, GA 30092',
     coordinates: [33.9661042, -84.2569684], year: 'Meeting Cadence',
     description: 'This is where Marlie first met Cadence! We are so, so lucky she came into our lives.',
     photos: photos(['24', '25', '6-png'], 'Memories with Cadence'),
@@ -93,18 +92,18 @@ export const adventures = [
     id: 'iceland', place: 'South Coast, Iceland', region: 'Iceland', type: 'visit',
     coordinates: [63.5321, -19.5114], year: 'Celebrating a PhD milestone',
     description: 'This big trip celebrated Marlie becoming a PhD candidate. Seeing the northern lights and going on some incredible outdoor adventures together was a magical, once-in-a-lifetime experience.',
-    photos: photos(['29', '30', '31', '32', '33'], 'Our adventures in Iceland'),
+    photos: photos(['32', '29', '31', '30', '33'], 'Our adventures in Iceland'),
   },
   {
     id: 'royal-blood', place: 'Royal Blood at Shaky Knees', region: 'Atlanta, Georgia', type: 'milestone',
     coordinates: [33.7663, -84.3797], year: 'Live music together',
-    description: 'Seeing Royal Blood at Shakey Knees!',
+    description: 'We bonded over loving this band before we even started dating. Then, in our first year together, they played one of Atlanta’s most famous festivals: Shaky Knees. It was so amazing to see them live, and it exceeded all expectations.',
     photos: photos(['38'], 'Together at Shaky Knees for Royal Blood'),
   },
   {
     id: 'mexico-city', place: 'Mexico City', region: 'Mexico', type: 'visit',
     coordinates: [19.4326, -99.1332], year: 'Family, culture, and tacos',
     description: 'This is where Will’s mom grew up. We are so lucky to have such a rich culture and amazing food as part of our story. A trip to Mexico City is incomplete without tacos with Tia Margot!',
-    photos: photos(['34', '35', '36', '37'], 'Our trip to Mexico City'),
+    photos: photos(['37', '34', '35', '36'], 'Our trip to Mexico City'),
   },
 ];
